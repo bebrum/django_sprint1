@@ -64,9 +64,9 @@ def post_detail(request, id):
 
 def category_posts(request, category_slug):
     # Фильтруем посты по категории
-    category_posts = [post for post in posts if post['category'] == category_slug]
+    cat_posts = [post for post in posts if post['category'] == category_slug]
     context = {
         'category_slug': category_slug,
-        'posts': category_posts
+        'posts': cat_posts
     }
     return render(request, 'category.html', context)
