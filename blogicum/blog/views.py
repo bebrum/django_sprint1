@@ -1,7 +1,6 @@
 from django.shortcuts import render
-from django.http import Http404
 
-# Данные для постов
+
 posts = [
     {
         'id': 0,
@@ -47,26 +46,18 @@ posts = [
 
 
 def index(request):
+    template = 'blog/index.html'
     context = {'posts': posts}
-    return render(request, 'index.html', context)
+    return render(request, template, context)
 
 
-def post_detail(request, id):
-    # Ищем пост по id
-    post = next((post for post in posts if post['id'] == id), None)
-
-    if post is None:
-        raise Http404(f'Пост с id {id} не найден')
-
-    context = {'post': post}
-    return render(request, 'detail.html', context)
+def post_detail(request, post_id):
+    template = 'blog/detail.html'
+    context = {'post': posts[post_id]}
+    return render(request, template, context)
 
 
 def category_posts(request, category_slug):
-    # Фильтруем посты по категории
-    cat_posts = [post for post in posts if post['category'] == category_slug]
-    context = {
-        'category_slug': category_slug,
-        'posts': cat_posts
-    }
-    return render(request, 'category.html', context)
+    template = 'blog/category.html'
+    context = {'name': category_slug}
+    return render(request, template, context)

@@ -11,20 +11,24 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
-import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-53dl2f)-!0nb6_m44qt)&q-gkmzfqqh3&v&g!a2uh0pi=@j*32'
+SECRET_KEY = 'django-insecure-5gkk9nl7y%nf#djo#kv&25m4-8jo2+7y_!n^lhg84+agh@wakv'
 
+# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = []
+
+
+# Application definition
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -34,7 +38,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'blog.apps.BlogConfig',
-    'pages.apps.PagesConfig',
+    'pages.apps.PagesConfig'
+]
+
+STATIC_URL = '/static_dev/'
+
+STATICFILES_DIRS = [
+    BASE_DIR / 'static_dev',
 ]
 
 MIDDLEWARE = [
@@ -52,8 +62,7 @@ ROOT_URLCONF = 'blogicum.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        # Указываем папку html как источник шаблонов
-        'DIRS': [os.path.join(BASE_DIR, 'html')],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -68,6 +77,10 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'blogicum.wsgi.application'
 
+
+# Database
+# https://docs.djangoproject.com/en/3.2/ref/settings/#databases
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -75,20 +88,44 @@ DATABASES = {
     }
 }
 
-AUTH_PASSWORD_VALIDATORS = [...]
 
-LANGUAGE_CODE = 'ru-ru'
+# Password validation
+# https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
+
+AUTH_PASSWORD_VALIDATORS = [
+    {
+        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+    },
+]
+
+
+# Internationalization
+# https://docs.djangoproject.com/en/3.2/topics/i18n/
+
+LANGUAGE_CODE = 'en-us'
+
 TIME_ZONE = 'UTC'
+
 USE_I18N = True
+
 USE_L10N = True
+
 USE_TZ = True
 
-# Статические файлы (CSS, JavaScript, Images)
-STATIC_URL = '/static/'
-# Добавляем пути к статическим файлам из папки html
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'html', 'css'),
-    os.path.join(BASE_DIR, 'html', 'img'),
-]
+
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/3.2/howto/static-files/
+
+# Default primary key field type
+# https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
